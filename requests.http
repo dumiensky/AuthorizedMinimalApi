@@ -1,0 +1,33 @@
+### Authorize as admin
+POST https://localhost:7038/login
+Content-Type: application/json
+
+{
+  "userName": "user-admin",
+  "password": "123"
+}
+
+> {% client.global.set("auth_token", response.body.access_token); %}
+
+### Authorize as general
+POST https://localhost:7038/login
+Content-Type: application/json
+
+{
+  "userName": "user-general",
+  "password": "123"
+}
+
+> {% client.global.set("auth_token", response.body.access_token); %}
+
+### Perform authorized GET
+GET https://localhost:7038/authorized
+Authorization: Bearer {{auth_token}}
+
+### Perform general GET
+GET https://localhost:7038/general
+Authorization: Bearer {{auth_token}}
+
+### Perform admin GET
+GET https://localhost:7038/admin
+Authorization: Bearer {{auth_token}}
